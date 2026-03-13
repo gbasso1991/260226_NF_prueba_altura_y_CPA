@@ -136,10 +136,10 @@ _,_,_, H_center,M_center,_ = lector_ciclos(ciclo_center[0])
 _,_,_, H_bottom,M_bottom,_ = lector_ciclos(ciclo_bottom[0])
 
 
-fig, ax =plt.subplots(figsize=(8,6),constrained_layout=True)
-ax.plot(H_top/1000,M_top,'-',label='top')
-ax.plot(H_center/1000,M_center,'-',label='center')
+fig, ax =plt.subplots(figsize=(9,6),constrained_layout=True)
 ax.plot(H_bottom/1000,M_bottom,'-',label='bottom')
+ax.plot(H_center/1000,M_center,'-',label='center')
+ax.plot(H_top/1000,M_top,'-',label='top')
 ax.grid()
 ax.set_xlabel('H (kA/m)')
 ax.legend()
@@ -167,30 +167,31 @@ dT_top = res_top.temperatura[-1]-res_top.temperatura[0]
 dT_center = res_center.temperatura[-1]-res_center.temperatura[0]
 dT_bottom = res_bottom.temperatura[-1]-res_bottom.temperatura[0]
 
-fig0, ax = plt.subplots(figsize=(8,5),constrained_layout=True)
-ax.plot(res_top.time,res_top.temperatura,'.-',label=rf'''top
-$\Delta$t={dt_top:.2f} s 
-$\Delta$T={dT_top:.2f} °C
-rate = {dT_top/dt_top:.2f} °C/s
+fig0, ax = plt.subplots(figsize=(10,4),constrained_layout=True)
+ax.plot(res_bottom.time,res_bottom.temperatura,'.-',label=f'''bottom
+$\Delta$t={dt_bottom:.2f} s 
+$\Delta$T={dT_bottom:.2f} °C
+rate = {dT_bottom/dt_bottom:.2f} °C/s
 ''')
 ax.plot(res_center.time,res_center.temperatura,'.-',label=f'''center 
 $\Delta$t={dt_center:.2f} s 
 $\Delta$T={dT_center:.2f} °C
 rate = {dT_center/dt_center:.2f} °C/s
 ''')
-ax.plot(res_bottom.time,res_bottom.temperatura,'.-',label=f'''bottom
-$\Delta$t={dt_bottom:.2f} s 
-$\Delta$T={dT_bottom:.2f} °C
-rate = {dT_bottom/dt_bottom:.2f} °C/s
+ax.plot(res_top.time,res_top.temperatura,'.-',label=rf'''top
+$\Delta$t={dt_top:.2f} s 
+$\Delta$T={dT_top:.2f} °C
+rate = {dT_top/dt_top:.2f} °C/s
 ''')
 ax.grid()
 ax.set_xlabel('t (s)')
 ax.set_ylabel('T (°C)')
-ax.legend()
+ax.legend(ncol=2)
+ax.set_xlim(0,)
 plt.suptitle('Templogs\nNF@cit - 300 kHz & 57 kA/m',fontsize=14)
 plt.savefig('templogs_NF@cit_300kHz_57kAm_top_center_bottom.png',dpi=300)
 #%% tau y SAR vs time/Temp
-fig1, ((ax,ax3),(ax2,ax4)) = plt.subplots(2,2,figsize=(11,7),constrained_layout=True,sharex='col',sharey='row')
+fig1, ((ax,ax3),(ax2,ax4)) = plt.subplots(2,2,figsize=(11,6),constrained_layout=True,sharex='col',sharey='row')
 
 ax.set_title('τ vs t',loc='left')
 ax.plot(res_top.time,res_top.tau,'.-',label='top')
